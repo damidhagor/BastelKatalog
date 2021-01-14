@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BastelKatalog", "BastelKatalog\BastelKatalog\BastelKatalog.csproj", "{552B2826-210A-4B27-A384-C06921014250}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigrationDummyConsole", "MigrationDummyConsole\MigrationDummyConsole.csproj", "{2BF1869D-49C9-47B0-8F96-8FA88C38D7FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BastelKatalog.Android", "BastelKatalog\BastelKatalog.Android\BastelKatalog.Android.csproj", "{05B10D14-805A-4BB6-AE97-BA14BDA27DC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{552B2826-210A-4B27-A384-C06921014250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{552B2826-210A-4B27-A384-C06921014250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{552B2826-210A-4B27-A384-C06921014250}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{552B2826-210A-4B27-A384-C06921014250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{552B2826-210A-4B27-A384-C06921014250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{552B2826-210A-4B27-A384-C06921014250}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2BF1869D-49C9-47B0-8F96-8FA88C38D7FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF1869D-49C9-47B0-8F96-8FA88C38D7FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05B10D14-805A-4BB6-AE97-BA14BDA27DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05B10D14-805A-4BB6-AE97-BA14BDA27DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05B10D14-805A-4BB6-AE97-BA14BDA27DC0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{05B10D14-805A-4BB6-AE97-BA14BDA27DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05B10D14-805A-4BB6-AE97-BA14BDA27DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05B10D14-805A-4BB6-AE97-BA14BDA27DC0}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4356C623-A9FE-40C6-80D6-4B4D8811128B}
+	EndGlobalSection
+EndGlobal

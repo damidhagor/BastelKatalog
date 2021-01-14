@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BastelKatalog.Views.EditItemPage"
+             Appearing="OnAppearing">
+
+    <ContentPage.Content>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding Item.Image, TargetNullValue=icon_image.png}" WidthRequest="100" HeightRequest="100" Margin="0,0,10,0">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Image_Clicked"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Item.Name}" Placeholder="Name"/>
+                <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Item.Code}" Placeholder="Code"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Text="Kategorie:" FontAttributes="Bold" VerticalOptions="Center" Margin="3,0,5,0"/>
+                <Picker Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Categories}" SelectedItem="{Binding Item.Item.Category}" ItemDisplayBinding="{Binding Name}" TextColor="Black" VerticalOptions="Center"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Menge:" FontAttributes="Bold" VerticalOptions="Center" Margin="3,0,5,0"/>
+                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <ImageButton Source="icon_minus.png" Clicked="MinusStock_Clicked" WidthRequest="35" HeightRequest="20" Margin="0,5,0,5" Padding="5,0,5,0" HorizontalOptions="Start"/>
+                    <Entry Text="{Binding Item.Stock}" Keyboard="Numeric" WidthRequest="70" HorizontalTextAlignment="Center"/>
+                    <ImageButton Source="icon_add.png" Clicked="AddStock_Clicked" WidthRequest="35" HeightRequest="20" Margin="0,5,0,5" Padding="5,0,5,0" HorizontalOptions="Start"/>
+                </StackLayout>
+            </Grid>
+
+            <Editor Grid.Row="2" Grid.Column="0" Text="{Binding Item.Description}" Placeholder="Beschreibung" VerticalOptions="FillAndExpand" Margin="0,20,0,0"/>
+            <Editor Grid.Row="3" Grid.Column="0" Text="{Binding Item.Tags}" Placeholder="Tags" VerticalOptions="FillAndExpand"/>
+
+            <StackLayout Grid.Row="4" Grid.Column="0" Orientation="Horizontal" HorizontalOptions="Center" Margin="0,20,0,0">
+                <Button Text="Speichern" Clicked="Save_Clicked"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

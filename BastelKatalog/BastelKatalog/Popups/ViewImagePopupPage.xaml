@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage x:Class="BastelKatalog.Popups.ViewImagePopupPage"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 CloseWhenBackgroundIsClicked="True">
+
+    <StackLayout Orientation="Vertical" Margin="50" HorizontalOptions="Fill" VerticalOptions="Fill">
+        <StackLayout Orientation="Vertical" Background="White" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+            <Grid Padding="10" BackgroundColor="{StaticResource Primary}">
+                <Label x:Name="titleLabel" Text="{Binding ImageTitle}" TextColor="White" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="Fill" VerticalOptions="Start"/>
+                <Image Source="icon_add" Rotation="45" HeightRequest="{Binding Path=Height, Source={x:Reference titleLabel}}" HorizontalOptions="End" VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Close_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+            <Image Source="{Binding Image}" Aspect="AspectFill" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BastelKatalog.Views.ShowItemPage"
+             Appearing="OnAppearing" Title="{Binding Item.Name}">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Orientation="Vertical" Padding="10">
+
+                <Image Source="{Binding Item.Image, TargetNullValue=icon_image.png}" WidthRequest="250" HeightRequest="250" HorizontalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Image_Tapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="Kategorie:" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" Margin="0,0,5,5"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Item.Category.Name, FallbackValue=-}" FontSize="20" VerticalOptions="Center" Margin="0,0,0,5"/>
+
+                    <Label Grid.Row="1" Grid.Column="0" Text="Menge:" FontSize="20" FontAttributes="Bold" VerticalOptions="Center" Margin="0,5,5,5"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Item.Stock}" FontSize="20" VerticalOptions="Center" Margin="0,5,0,5"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Text="Beschreibung:" FontSize="20" FontAttributes="Bold" VerticalOptions="Start" Margin="0,5,5,5"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Item.Description}" FontSize="20" VerticalOptions="FillAndExpand" Margin="0,5,0,5"/>
+
+                    <Label Grid.Row="3" Grid.Column="0" Text="Tags:" FontSize="20" FontAttributes="Bold" VerticalOptions="Start" Margin="0,5,5,0"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Item.Tags}" FontSize="20" VerticalOptions="FillAndExpand" Margin="0,5,0,0"/>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
