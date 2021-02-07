@@ -6,6 +6,9 @@ using Xamarin.Forms;
 
 namespace BastelKatalog.Models
 {
+    /// <summary>
+    /// Wraps Item object for UI usage
+    /// </summary>
     public class ItemWrapper : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged

@@ -5,11 +5,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using BastelKatalog.Data;
 using BastelKatalog.Models;
-using BastelKatalog.Views;
 using Microsoft.EntityFrameworkCore;
 using Xamarin.Forms;
 
@@ -26,6 +24,9 @@ namespace BastelKatalog.ViewModels
 
         private readonly CatalogueContext _CatalogueDb;
 
+        /// <summary>
+        /// Title changes if page displays a search result
+        /// </summary>
         public string PageTitle => IsSearch ? "Suche" : "Items";
 
         private ObservableCollection<ItemWrapper> _Items = new ObservableCollection<ItemWrapper>();
@@ -44,6 +45,9 @@ namespace BastelKatalog.ViewModels
 
 
         private bool _IsSearch = false;
+        /// <summary>
+        /// If page displays a search result
+        /// </summary>
         public bool IsSearch
         {
             get { return _IsSearch; }
@@ -59,6 +63,9 @@ namespace BastelKatalog.ViewModels
         }
 
         private string _SearchText = "";
+        /// <summary>
+        /// Search term
+        /// </summary>
         public string SearchText
         {
             get { return _SearchText; }
@@ -73,6 +80,9 @@ namespace BastelKatalog.ViewModels
         }
 
         private int _SearchCategoryId = -1;
+        /// <summary>
+        /// Category Id used for search
+        /// </summary>
         public int SearchCategoryId
         {
             get { return _SearchCategoryId; }
@@ -87,6 +97,9 @@ namespace BastelKatalog.ViewModels
         }
 
         private string _SearchCategoryName = "Alle";
+        /// <summary>
+        /// Name of category used for search
+        /// </summary>
         public string SearchCategoryName
         {
             get { return _SearchCategoryName; }
@@ -122,6 +135,7 @@ namespace BastelKatalog.ViewModels
             SearchCategoryId = searchCategoryId;
         }
 
+
         public async Task LoadItems()
         {
             try
@@ -129,6 +143,7 @@ namespace BastelKatalog.ViewModels
                 _Items.Clear();
                 IQueryable<Item> itemQuery = _CatalogueDb.Items;
 
+                // Apply search filters
                 if (IsSearch)
                 {
                     if (SearchCategoryId != -1)
@@ -144,6 +159,7 @@ namespace BastelKatalog.ViewModels
                                                     || (i.Tags != null && i.Tags.ToLower().Contains(SearchText)));
                 }
 
+                // Get items
                 List<ItemWrapper> items = await itemQuery.OrderBy(i => i.Name).Select(i => i.ToItemWrapper()).ToListAsync();
                 foreach (ItemWrapper item in items)
                     _Items.Add(item);

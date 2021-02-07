@@ -1,4 +1,5 @@
 ﻿using System;
+using BastelKatalog.Models;
 using BastelKatalog.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -29,9 +30,19 @@ namespace BastelKatalog.Views
                 await ViewModel.AddCategory(name);
         }
 
+        private async void AddSub_Tapped(object sender, EventArgs e)
+        {
+            if (!((sender as Image)?.BindingContext is CategoryWrapper category))
+                return;
+
+            string name = await DisplayPromptAsync(null, "Bitte Namen der Sub-Kategorie eingeben:", "Ok", "Abbrechen");
+            if (!String.IsNullOrWhiteSpace(name))
+                await ViewModel.AddSubCategory(category, name);
+        }
+
         private async void Edit_Tapped(object sender, EventArgs e)
         {
-            if (!((sender as Image)?.BindingContext is Data.Category category))
+            if (!((sender as Image)?.BindingContext is CategoryWrapper category))
                 return;
 
             string name = await DisplayPromptAsync(null, "Bitte neuen Namen der Kategorie eingeben:", "Ok", "Abbrechen");
@@ -41,10 +52,14 @@ namespace BastelKatalog.Views
 
         private async void Delete_Tapped(object sender, EventArgs e)
         {
-            if (!((sender as Image)?.BindingContext is Data.Category category))
+            if (!((sender as Image)?.BindingContext is CategoryWrapper category))
                 return;
 
-            if ("Ja" == await DisplayActionSheet($"Soll die Kategorie '{category.Name}' wirklich gelöscht werden?", null, null, "Ja", "Nein"))
+            string message = category.Category.SubCategories.Count == 0
+                            ? $"Soll die Kategorie '{category.Name}' gelöscht werden?"
+                            : $"Soll die Kategorie '{category.Name}' und ihre Sub-Kategorien gelöscht werden?";
+
+            if ("Ja" == await DisplayActionSheet(message, null, null, "Ja", "Nein"))
                 await ViewModel.DeleteCategory(category);
         }
     }

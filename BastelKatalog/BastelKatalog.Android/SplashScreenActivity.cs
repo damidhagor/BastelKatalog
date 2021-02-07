@@ -31,11 +31,12 @@ namespace BastelKatalog.Droid
 
         private void StartUp()
         {
+            // Create DatabaseContext
             Data.CatalogueContext db = new Data.CatalogueContext();
             db.Database.Migrate();
             DependencyService.RegisterSingleton(db);
 
-
+            // Start actual MainActivity
             StartActivity(typeof(MainActivity));
         }
     }

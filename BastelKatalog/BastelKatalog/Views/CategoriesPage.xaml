@@ -1,11 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:data="clr-namespace:BastelKatalog.Data"
+             xmlns:models="clr-namespace:BastelKatalog.Models"
+             xmlns:converter="clr-namespace:BastelKatalog.Views.Converter"
              x:Class="BastelKatalog.Views.CategoriesPage"
              x:Name="categoriesPage"
              Title="Kategorien" Appearing="OnAppearing">
 
+    <ContentPage.Resources>
+        <converter:SubCategoryIndentConverter x:Key="IndentConverter"/>
+    </ContentPage.Resources>
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="icon_add.png" Clicked="Add_Clicked"/>
     </ContentPage.ToolbarItems>
@@ -21,23 +26,38 @@
 
             <CollectionView ItemsSource="{Binding Categories}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="data:Category">
-                        <Grid Padding="10">
+                    <DataTemplate x:DataType="models:CategoryWrapper">
+                        <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="20" VerticalOptions="Center"/>
-                            <Image Grid.Row="0" Grid.Column="1" Source="icon_edit.png" WidthRequest="30" HeightRequest="30" Margin="20,0,10,0">
+
+                            <!--Category indentations-->
+                            <ContentView Content="{Binding ., Converter={StaticResource IndentConverter}}" HeightRequest="50"/>
+
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontSize="20" VerticalOptions="Center"/>
+                            
+                            <!--Add Sub-Category-->
+                            <Image Grid.Row="0" Grid.Column="2" Source="icon_add.png" WidthRequest="30" HeightRequest="30" Margin="20,0,0,0">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="AddSub_Tapped"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <!--Edit Category-->
+                            <Image Grid.Row="0" Grid.Column="3" Source="icon_edit.png" WidthRequest="30" HeightRequest="30" Margin="10,0,10,0">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Edit_Tapped"/>
                                 </Image.GestureRecognizers>
                             </Image>
-                            <Image Grid.Row="0" Grid.Column="2" Source="icon_delete.png" WidthRequest="30" HeightRequest="30" HorizontalOptions="End">
+                            <!--Delete Category-->
+                            <Image Grid.Row="0" Grid.Column="4" Source="icon_delete.png" WidthRequest="30" HeightRequest="30" HorizontalOptions="End">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Delete_Tapped"/>
                                 </Image.GestureRecognizers>

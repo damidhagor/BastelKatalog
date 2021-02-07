@@ -78,6 +78,7 @@ namespace BastelKatalog.Views
 
         private async void OnAppearing(object sender, EventArgs e)
         {
+            // Display Add Button only if not displaying search results
             if (!IsSearch && ToolbarItems.Count == 0)
                 ToolbarItems.Add(new ToolbarItem("", "icon_add.png", () => Add()));
 

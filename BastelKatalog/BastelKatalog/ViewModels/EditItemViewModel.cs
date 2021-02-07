@@ -55,7 +55,7 @@ namespace BastelKatalog.ViewModels
 
         public EditItemViewModel()
         {
-            _CatalogueDb = DependencyService.Resolve<Data.CatalogueContext>();
+            _CatalogueDb = DependencyService.Resolve<CatalogueContext>();
             _Item = new ItemWrapper(new Item(""));
         }
 
@@ -64,7 +64,7 @@ namespace BastelKatalog.ViewModels
         {
             try
             {
-                Categories = new ObservableCollection<Data.Category>(_CatalogueDb.Categories.ToList());
+                Categories = new ObservableCollection<Category>(_CatalogueDb.Categories.ToList());
 
                 Item = _CatalogueDb.Items.FirstOrDefault(i => i.Id == itemId)?.ToItemWrapper()
                     ?? new ItemWrapper(new Item(""));
@@ -82,8 +82,10 @@ namespace BastelKatalog.ViewModels
 
         public string? Validate()
         {
+            // Name must be entered
             if (String.IsNullOrWhiteSpace(Item.Name))
                 return "Bitte Namen angeben.";
+            // Stock must not be negative
             if (Item.Stock < 0f)
                 return "Menge darf nicht negativ sein.";
 
@@ -96,6 +98,7 @@ namespace BastelKatalog.ViewModels
             {
                 using (SkiaSharp.SKBitmap original = SkiaSharp.SKBitmap.Decode(data))
                 {
+                    // Calculate new image size so biggest side is 1000 pixels
                     int width, height;
                     if (original.Width == original.Height)
                     {
@@ -112,6 +115,7 @@ namespace BastelKatalog.ViewModels
                         width = (int)(1000 * ((float)original.Width / original.Height));
                     }
 
+                    // Resize image and write to ImageData
                     using (SkiaSharp.SKBitmap resized = new SkiaSharp.SKBitmap(width, height, original.ColorType, original.AlphaType, original.ColorSpace))
                     {
                         if (original.ScalePixels(resized, SkiaSharp.SKFilterQuality.High))
@@ -138,6 +142,7 @@ namespace BastelKatalog.ViewModels
         {
             try
             {
+                // Save image and delete existing if overwritten
                 if (ImageData != null)
                 {
                     string? filename = await ImageManager.SaveImage(ImageData);

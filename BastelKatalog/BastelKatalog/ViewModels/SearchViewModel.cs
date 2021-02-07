@@ -24,6 +24,9 @@ namespace BastelKatalog.ViewModels
 
 
         private string _SearchText = "";
+        /// <summary>
+        /// Search term
+        /// </summary>
         public string SearchText
         {
             get { return _SearchText; }
@@ -52,6 +55,9 @@ namespace BastelKatalog.ViewModels
         }
 
         private Data.Category? _SelectedCategory;
+        /// <summary>
+        /// Selected category for search
+        /// </summary>
         public Data.Category? SelectedCategory
         {
             get { return _SelectedCategory; }
@@ -81,6 +87,7 @@ namespace BastelKatalog.ViewModels
                 _Categories.Clear();
                 List<Data.Category> categories = await _CatalogueDb.Categories.OrderBy(c => c.Name).ToListAsync();
 
+                // Prepend "Alle" option for categories
                 _Categories.Add(new Data.Category("Alle") { Id = -1 });
                 foreach (Data.Category category in categories)
                     _Categories.Add(category);

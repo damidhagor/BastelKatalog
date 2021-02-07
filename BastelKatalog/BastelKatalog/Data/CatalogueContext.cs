@@ -20,6 +20,7 @@ namespace BastelKatalog.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // On Android choose AppData directory
             string dbPath;
             if (DeviceInfo.Platform == DevicePlatform.Android)
                 dbPath = Path.Combine(FileSystem.AppDataDirectory, "catalogue.db3");
@@ -33,11 +34,20 @@ namespace BastelKatalog.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // AutoIncrement Item Id
             modelBuilder.Entity<Item>().HasKey(i => i.Id);
             modelBuilder.Entity<Item>().Property(i => i.Id).ValueGeneratedOnAdd();
 
+            // AutoIncrement Category Id
             modelBuilder.Entity<Category>().HasKey(c => c.Id);
             modelBuilder.Entity<Category>().Property(c => c.Id).ValueGeneratedOnAdd();
+            // One-to-many parent Category relationship
+            // A Category can have 1 parent Category.
+            modelBuilder.Entity<Category>()
+                .HasOne(c => c.ParentCategory)
+                .WithMany(c => c!.SubCategories)
+                .HasForeignKey(c => c.ParentCategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

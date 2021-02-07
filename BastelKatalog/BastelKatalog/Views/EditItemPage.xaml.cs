@@ -50,6 +50,7 @@ namespace BastelKatalog.Views
                     Name = Guid.NewGuid().ToString()
                 };
 
+                // Get photo from camera
                 Plugin.Media.Abstractions.MediaFile? photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(options);
                 if (!String.IsNullOrWhiteSpace(photo?.Path) && File.Exists(photo.Path))
                 {
@@ -77,6 +78,7 @@ namespace BastelKatalog.Views
 
         private async void Save_Clicked(object sender, EventArgs e)
         {
+            // Validate before save
             string? result = ViewModel.Validate();
             if (!String.IsNullOrWhiteSpace(result))
             {
@@ -84,8 +86,10 @@ namespace BastelKatalog.Views
                 return;
             }
 
+            // Save
             bool saved = await ViewModel.SaveItem();
 
+            // Ask if new item should be added or return to item list
             if (saved)
             {
                 if (_ItemId < 1)

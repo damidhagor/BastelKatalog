@@ -28,13 +28,7 @@
             </Frame>
 
             <Label Grid.Row="1" Grid.Column="0" Text="Kategorie:" TextColor="White" Margin="0,0,5,0" VerticalOptions="Center"/>
-            <Picker Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCategory}" TextColor="White" VerticalOptions="Center">
-                <Picker.Style>
-                    <Style TargetType="Picker">
-                        
-                    </Style>
-                </Picker.Style>
-            </Picker>
+            <Picker Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCategory}" TextColor="White" VerticalOptions="Center"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

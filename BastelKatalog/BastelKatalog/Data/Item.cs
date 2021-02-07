@@ -18,6 +18,9 @@
 
         public string? Tags { get; set; }
 
+        /// <summary>
+        /// Path of the image relative to the main image folder
+        /// </summary>
         public string? ImagePath { get; set; }
 
 
