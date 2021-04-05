@@ -11,6 +11,10 @@ namespace BastelKatalog.Data
 
         public DbSet<Category> Categories { get; set; } = default!;
 
+        public DbSet<Project> Projects { get; set; } = default!;
+
+        public DbSet<ProjectItem> ProjectItems { get; set; } = default!;
+
 
         public CatalogueContext()
         {
@@ -27,7 +31,9 @@ namespace BastelKatalog.Data
             else
                 dbPath = "catalogue.db3";
 
-            optionsBuilder.UseSqlite($"Filename={dbPath}");
+            optionsBuilder
+                .UseSqlite($"Filename={dbPath}")
+                .UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,6 +53,30 @@ namespace BastelKatalog.Data
                 .HasOne(c => c.ParentCategory)
                 .WithMany(c => c!.SubCategories)
                 .HasForeignKey(c => c.ParentCategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // AutoIncrement Project Id
+            modelBuilder.Entity<Project>().HasKey(p => p.Id);
+            modelBuilder.Entity<Project>().Property(p => p.Id).ValueGeneratedOnAdd();
+            // Many-to-One Project ProjectItem Relationship
+            // Projects have many ProjectItems associated with them
+            // An Item can be associated to one Project
+            modelBuilder.Entity<Project>()
+                .HasMany(p => p.Items)
+                .WithOne(i => i.Project)
+                .HasForeignKey(i => i.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // AutoIncrement ProjectItem Id
+            modelBuilder.Entity<ProjectItem>().HasKey(i => i.Id);
+            modelBuilder.Entity<ProjectItem>().Property(i => i.Id).ValueGeneratedOnAdd();
+            // One-to-Man< ProjectItem Item Relationship
+            // ProjectItems have one Item associated with them
+            // An Item can be associated to many ProjectItems
+            modelBuilder.Entity<ProjectItem>()
+                .HasOne(i => i.Item)
+                .WithMany()
+                .HasForeignKey(i => i.ItemId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

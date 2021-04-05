@@ -15,7 +15,7 @@
                     </Image.GestureRecognizers>
                 </Image>
             </Grid>
-            <Image Source="{Binding Image}" Aspect="AspectFill" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            <Image Source="{Binding Image}" Aspect="AspectFit" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
         </StackLayout>
     </StackLayout>
 </pages:PopupPage>

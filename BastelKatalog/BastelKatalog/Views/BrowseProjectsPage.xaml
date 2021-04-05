@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:BastelKatalog.Models"
+             x:Class="BastelKatalog.Views.BrowseProjectsPage"
+             Title="Projekte" Appearing="OnAppearing">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_add.png" Clicked="Add_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <CollectionView Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Projects}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ProjectWrapper">
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Project_Tapped"/>
+                            </Grid.GestureRecognizers>
+
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Label Grid.Row="1" Grid.Column="0" FontSize="16" VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="{Binding Items.Count}"/>
+                                            <Span Text=" Items"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            
+                            <Image Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Source="icon_delete.png" WidthRequest="30" HeightRequest="30">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Delete_Tapped"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

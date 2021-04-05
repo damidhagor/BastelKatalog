@@ -170,6 +170,21 @@ namespace BastelKatalog.ViewModels
             }
         }
 
+        public async Task AddItemToProject(ItemWrapper item, ProjectWrapper project, float neededStock)
+        {
+            try
+            {
+                ProjectItem projectItem = new ProjectItem(project.Project, item.Item) { NeededStock = neededStock };
+
+                _CatalogueDb.ProjectItems.Add(projectItem);
+                await _CatalogueDb.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error adding item to project: {e.Message}");
+            }
+        }
+
         public async Task DeleteItem(ItemWrapper item)
         {
             try

@@ -4,6 +4,10 @@
              x:Class="BastelKatalog.Views.ShowItemPage"
              Appearing="OnAppearing" Title="{Binding Item.Name}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_edit.png" Clicked="Edit_Clicked"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Orientation="Vertical" Padding="10">

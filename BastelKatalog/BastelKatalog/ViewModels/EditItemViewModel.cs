@@ -8,6 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using BastelKatalog.Data;
 using BastelKatalog.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Xamarin.Forms;
 
 namespace BastelKatalog.ViewModels
@@ -21,6 +23,8 @@ namespace BastelKatalog.ViewModels
         #endregion
 
         private readonly CatalogueContext _CatalogueDb;
+
+        public bool WasSaved { get; private set; }
 
         private ItemWrapper _Item;
         public ItemWrapper Item
@@ -159,6 +163,8 @@ namespace BastelKatalog.ViewModels
                     _CatalogueDb.Items.Add(_Item.Item);
                 await _CatalogueDb.SaveChangesAsync();
 
+                WasSaved = true;
+
                 return true;
             }
             catch (Exception e)
@@ -166,6 +172,16 @@ namespace BastelKatalog.ViewModels
                 Debug.WriteLine($"Error saving item: {e.Message}");
                 return false;
             }
+        }
+
+        public void RevertChanges()
+        {
+            EntityEntry<Item>? entry = _CatalogueDb.ChangeTracker.Entries<Item>().FirstOrDefault(i => i.Entity.Id == Item.Item.Id);
+            if (entry == null || entry.State == EntityState.Unchanged)
+                return;
+
+            entry.CurrentValues.SetValues(entry.OriginalValues);
+            entry.State = EntityState.Unchanged;
         }
     }
 }

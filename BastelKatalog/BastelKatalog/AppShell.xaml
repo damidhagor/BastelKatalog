@@ -73,6 +73,9 @@
     <FlyoutItem x:Name="categoriesItem" Title="Kategorien" Icon="icon_categories.png">
         <ShellContent Route="HomeCategoriesPage" ContentTemplate="{DataTemplate local:CategoriesPage}"/>
     </FlyoutItem>
+    <FlyoutItem x:Name="projectsItem" Title="Projekte" Icon="icon_projects.png">
+        <ShellContent Route="BrowseProjectsPage" ContentTemplate="{DataTemplate local:BrowseProjectsPage}"/>
+    </FlyoutItem>
 
      <!--This header appears at the top of the Flyout.-->
     <Shell.FlyoutHeaderTemplate>

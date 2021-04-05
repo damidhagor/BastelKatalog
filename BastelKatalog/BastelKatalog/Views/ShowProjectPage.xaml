@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:BastelKatalog.Models"
+             x:Class="BastelKatalog.Views.ShowProjectPage"
+             Appearing="OnAppearing" IconImageSource="icon_projects.png" Title="{Binding Project.Name}">
+
+    <ContentPage.Resources>
+        <x:String x:Key="NoDescriptionString">(Keine Beschreibung vorhanden)</x:String>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_edit.png" Clicked="Edit_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollView Grid.Row="0" Grid.Column="0">
+                <Label Text="{Binding Project.Description, TargetNullValue={x:StaticResource NoDescriptionString}}" FontSize="20"/>
+            </ScrollView>
+
+            <CollectionView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Project.Items}" Margin="0,20,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ProjectItemWrapper">
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Item_Tapped"/>
+                            </Grid.GestureRecognizers>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding Item.Image, TargetNullValue=icon_image.png}" WidthRequest="70" HeightRequest="70" Margin="0,0,10,0">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="Image_Tapped"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Item.Name}" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
+                            <Label Grid.Row="1" Grid.Column="1" FontSize="16" VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="Benötigt: "/>
+                                            <Span Text="{Binding NeededStock}"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

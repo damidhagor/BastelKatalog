@@ -90,7 +90,7 @@ namespace BastelKatalog.Views
             await AppShell.Current.GoToAsync(nameof(EditItemPage));
         }
 
-        private async void Item_Clicked(object sender, EventArgs e)
+        private async void Item_Tapped(object sender, EventArgs e)
         {
             if (!((sender as Grid)?.BindingContext is ItemWrapper item))
                 return;
@@ -106,15 +106,15 @@ namespace BastelKatalog.Views
             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(item.Name, item.Image));
         }
 
-        private async void Edit_Clicked(object sender, EventArgs e)
+        private async void AddToProject_Tapped(object sender, EventArgs e)
         {
             if (!((sender as Image)?.BindingContext is ItemWrapper item))
                 return;
 
-            await AppShell.Current.GoToAsync($"{nameof(EditItemPage)}?ItemId={item.Item.Id}");
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ChooseProjectPopupPage((ProjectWrapper project, float neededStock) => ViewModel.AddItemToProject(item, project, neededStock)));
         }
 
-        private async void Delete_Clicked(object sender, EventArgs e)
+        private async void Delete_Tapped(object sender, EventArgs e)
         {
             if (!((sender as Image)?.BindingContext is ItemWrapper item))
                 return;

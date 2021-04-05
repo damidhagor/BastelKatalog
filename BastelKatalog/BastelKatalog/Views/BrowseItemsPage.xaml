@@ -38,26 +38,26 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="Item_Clicked"/>
+                                <TapGestureRecognizer Tapped="Item_Tapped"/>
                             </Grid.GestureRecognizers>
 
                             <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding Image, TargetNullValue=icon_image.png}" WidthRequest="70" HeightRequest="70" Margin="0,0,10,0">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Tapped="Image_Tapped"/>
-                                </Image.GestureRecognizers>    
+                                </Image.GestureRecognizers>
                             </Image>
-                            
+
                             <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontSize="20" FontAttributes="Bold" VerticalOptions="Center"/>
                             <Label Grid.Row="1" Grid.Column="1" Text="{Binding Code}" FontSize="16" VerticalOptions="Center"/>
-
-                            <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Source="icon_edit.png" WidthRequest="30" HeightRequest="30" Margin="20,0,10,0">
+                            
+                            <Image Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Source="icon_projects.png" WidthRequest="30" HeightRequest="30" Margin="10,0,10,0">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="Edit_Clicked"/>
+                                    <TapGestureRecognizer Tapped="AddToProject_Tapped"/>
                                 </Image.GestureRecognizers>
                             </Image>
                             <Image Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Source="icon_delete.png" WidthRequest="30" HeightRequest="30">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="Delete_Clicked"/>
+                                    <TapGestureRecognizer Tapped="Delete_Tapped"/>
                                 </Image.GestureRecognizers>
                             </Image>
                         </Grid>

@@ -39,6 +39,12 @@ namespace BastelKatalog.Views
             ViewModel.LoadData(_ItemId);
         }
 
+        private void OnDisappearing(object sender, EventArgs e)
+        {
+            if (!ViewModel.WasSaved)
+                ViewModel.RevertChanges();
+        }
+
 
         private async void Image_Clicked(object sender, EventArgs e)
         {

@@ -4,9 +4,9 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,21 +18,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.11" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Popups\ChooseProjectPopupPage.xaml.cs">
+      <DependentUpon>ChooseProjectPopupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Popups\ViewImagePopupPage.xaml.cs">
       <DependentUpon>ViewImagePopupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\BrowseProjectsPage.xaml.cs">
+      <DependentUpon>BrowseProjectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\EditProjectPage.xaml.cs">
+      <DependentUpon>EditProjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ShowProjectPage.xaml.cs">
+      <DependentUpon>ShowProjectPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ShowItemPage.xaml.cs">
       <DependentUpon>ShowItemPage.xaml</DependentUpon>

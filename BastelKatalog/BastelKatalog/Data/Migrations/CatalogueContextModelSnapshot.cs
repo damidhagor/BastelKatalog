@@ -14,7 +14,7 @@ namespace BastelKatalog.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.3");
 
             modelBuilder.Entity("BastelKatalog.Data.Category", b =>
                 {
@@ -71,12 +71,54 @@ namespace BastelKatalog.Data.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("BastelKatalog.Data.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("BastelKatalog.Data.ProjectItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("NeededStock")
+                        .HasColumnType("REAL");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectItems");
+                });
+
             modelBuilder.Entity("BastelKatalog.Data.Category", b =>
                 {
                     b.HasOne("BastelKatalog.Data.Category", "ParentCategory")
                         .WithMany("SubCategories")
                         .HasForeignKey("ParentCategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("ParentCategory");
                 });
@@ -90,9 +132,33 @@ namespace BastelKatalog.Data.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("BastelKatalog.Data.ProjectItem", b =>
+                {
+                    b.HasOne("BastelKatalog.Data.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BastelKatalog.Data.Project", "Project")
+                        .WithMany("Items")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("BastelKatalog.Data.Category", b =>
                 {
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("BastelKatalog.Data.Project", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

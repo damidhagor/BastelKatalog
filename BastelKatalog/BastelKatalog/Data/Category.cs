@@ -10,9 +10,9 @@ namespace BastelKatalog.Data
 
         public int? ParentCategoryId { get; set; }
 
-        public Category? ParentCategory { get; set; }
+        public virtual Category? ParentCategory { get; set; }
 
-        public ICollection<Category> SubCategories { get; set; }
+        public virtual ICollection<Category> SubCategories { get; set; }
 
 
         public Category(string name)
