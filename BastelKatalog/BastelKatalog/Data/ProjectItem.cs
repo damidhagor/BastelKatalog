@@ -17,7 +17,11 @@ namespace BastelKatalog.Data
         public float NeededStock { get; set; }
 
 
-        protected ProjectItem() { }
+        protected ProjectItem()
+        {
+            Item = default!;
+            Project = default!;
+        }
 
         public ProjectItem(Project project, Item item)
         {

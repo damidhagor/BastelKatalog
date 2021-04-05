@@ -19,7 +19,7 @@
         public string? Tags { get; set; }
 
         /// <summary>
-        /// Path of the image relative to the main image folder
+        /// Paths of images relative to the main image folder seperated by a ':'
         /// </summary>
         public string? ImagePath { get; set; }
 

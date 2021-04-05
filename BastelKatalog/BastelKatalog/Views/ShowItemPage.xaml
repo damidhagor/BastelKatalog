@@ -11,12 +11,25 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Orientation="Vertical" Padding="10">
-
-                <Image Source="{Binding Item.Image, TargetNullValue=icon_image.png}" WidthRequest="250" HeightRequest="250" HorizontalOptions="Center">
+                <Image Source="{Binding Item.SelectedImage.ImageSource, FallbackValue=icon_image.png}" WidthRequest="250" HeightRequest="250" HorizontalOptions="Center">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="Image_Tapped"/>
+                        <SwipeGestureRecognizer Direction="Left,Right" Threshold="20" Swiped="Image_Swiped"/>
                     </Image.GestureRecognizers>
                 </Image>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="-" Clicked="PreviousImageBtn_Clicked" IsEnabled="{Binding IsPreviousImageAvailable}" WidthRequest="40" HeightRequest="40" VerticalOptions="Center"/>
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" Margin="10,0,10,0">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Item.SelectedImageIndex}"/>
+                                <Span Text="\"/>
+                                <Span Text="{Binding Item.ImageCount}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Button Text="+" Clicked="NextImageBtn_Clicked" IsEnabled="{Binding IsNextImageAvailable}" WidthRequest="40" HeightRequest="40" VerticalOptions="Center"/>
+                </StackLayout>
 
                 <Grid Margin="0,20,0,0">
                     <Grid.RowDefinitions>

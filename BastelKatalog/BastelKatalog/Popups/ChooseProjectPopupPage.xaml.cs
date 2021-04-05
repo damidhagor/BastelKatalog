@@ -115,8 +115,11 @@ namespace BastelKatalog.Popups
 
         private async void Add_Clicked(object sender, EventArgs e)
         {
-            await _AddToProjectFunc(SelectedProject, NeededStock);
-            await Close();
+            if (SelectedProject != null)
+            {
+                await _AddToProjectFunc(SelectedProject, NeededStock);
+                await Close();
+            }
         }
 
         private async void Cancel_Clicked(object sender, EventArgs e)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using BastelKatalog.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -46,30 +47,37 @@ namespace BastelKatalog.Views
         }
 
 
-        private async void Image_Clicked(object sender, EventArgs e)
+        private async void Image_Tapped(object sender, EventArgs e)
         {
-            try
-            {
-                Plugin.Media.Abstractions.StoreCameraMediaOptions options = new Plugin.Media.Abstractions.StoreCameraMediaOptions
-                {
-                    AllowCropping = true,
-                    Name = Guid.NewGuid().ToString()
-                };
+            await AddNewImage();
+        }
 
-                // Get photo from camera
-                Plugin.Media.Abstractions.MediaFile? photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(options);
-                if (!String.IsNullOrWhiteSpace(photo?.Path) && File.Exists(photo.Path))
-                {
-                    byte[] data = await File.ReadAllBytesAsync(photo.Path);
-                    ViewModel.SetImageData(data);
+        private void Image_Swiped(object sender, SwipedEventArgs e)
+        {
+            if (e.Direction == SwipeDirection.Left)
+                ViewModel.ShowNextImage();
+            else if (e.Direction == SwipeDirection.Right)
+                ViewModel.ShowPreviousImage();
+        }
 
-                    File.Delete(photo.Path);
-                }
-            }
-            catch (Exception exc)
-            {
-                Debug.WriteLine($"Error taking picture: {exc.Message}");
-            }
+        private void PreviousImageBtn_Clicked(object sender, EventArgs e)
+        {
+            ViewModel.ShowPreviousImage();
+        }
+
+        private void NextImageBtn_Clicked(object sender, EventArgs e)
+        {
+            ViewModel.ShowNextImage();
+        }
+
+        private async void AddImageBtn_Clicked(object sender, EventArgs e)
+        {
+            await AddNewImage();
+        }
+
+        private void DeleteImageBtn_Clicked(object sender, EventArgs e)
+        {
+            ViewModel.DeleteImage();
         }
 
         private void AddStock_Clicked(object sender, EventArgs e)
@@ -115,6 +123,33 @@ namespace BastelKatalog.Views
             {
                 await DisplayAlert(null, "Das Item konnte nicht gespeichert werden.", "Ok");
                 await AppShell.Current.GoToAsync("..");
+            }
+        }
+
+
+        private async Task AddNewImage()
+        {
+            try
+            {
+                Plugin.Media.Abstractions.StoreCameraMediaOptions options = new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                {
+                    AllowCropping = true,
+                    Name = Guid.NewGuid().ToString()
+                };
+
+                // Get photo from camera
+                Plugin.Media.Abstractions.MediaFile? photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(options);
+                if (!String.IsNullOrWhiteSpace(photo?.Path) && File.Exists(photo.Path))
+                {
+                    byte[] data = await File.ReadAllBytesAsync(photo.Path);
+                    ViewModel.AddNewImage(data);
+
+                    File.Delete(photo.Path);
+                }
+            }
+            catch (Exception exc)
+            {
+                Debug.WriteLine($"Error taking picture: {exc.Message}");
             }
         }
     }

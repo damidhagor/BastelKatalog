@@ -49,7 +49,7 @@ namespace BastelKatalog.Views
             if (!((sender as Image)?.BindingContext is Models.ProjectItemWrapper item))
                 return;
 
-            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(item.Item.Name, item.Item.Image));
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(item.Item.Name, item.Item.SelectedImage.ImageSource));
         }
 
         private void AddStock_Clicked(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace BastelKatalog.Views
                 return;
 
             if ("Ja" == await DisplayActionSheet($"Möchtest du das Item '{item.Item.Name}' aus dem Projekt entfernen?", null, null, "Ja", "Nein"))
-                await ViewModel.DeleteProjectItem(item);
+                ViewModel.DeleteProjectItem(item);
         }
 
         private async void Save_Clicked(object sender, EventArgs e)

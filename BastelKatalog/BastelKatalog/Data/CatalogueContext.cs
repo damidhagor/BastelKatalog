@@ -5,6 +5,7 @@ using Xamarin.Essentials;
 
 namespace BastelKatalog.Data
 {
+    // Migrations Command: Add-Migration -Name "Changed Stock" -OutputDir "Data\Migrations" -Project BastelKatalog -StartupProject MigrationDummyConsole
     public class CatalogueContext : DbContext
     {
         public DbSet<Item> Items { get; set; } = default!;

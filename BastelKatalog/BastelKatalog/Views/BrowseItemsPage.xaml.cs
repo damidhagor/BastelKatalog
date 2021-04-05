@@ -103,7 +103,7 @@ namespace BastelKatalog.Views
             if (!((sender as Image)?.BindingContext is ItemWrapper item))
                 return;
 
-            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(item.Name, item.Image));
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(item.Name, item.SelectedImage.ImageSource));
         }
 
         private async void AddToProject_Tapped(object sender, EventArgs e)

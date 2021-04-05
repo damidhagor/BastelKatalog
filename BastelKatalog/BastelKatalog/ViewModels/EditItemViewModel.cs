@@ -56,6 +56,10 @@ namespace BastelKatalog.ViewModels
             }
         }
 
+        public bool IsPreviousImageAvailable => Item.SelectedImageIndex > 1;
+        public bool IsNextImageAvailable => Item.SelectedImageIndex < Item.ImageCount;
+        public bool IsDeleteImageAvailable => Item.SelectedImage != null;
+
 
         public EditItemViewModel()
         {
@@ -72,11 +76,47 @@ namespace BastelKatalog.ViewModels
 
                 Item = _CatalogueDb.Items.FirstOrDefault(i => i.Id == itemId)?.ToItemWrapper()
                     ?? new ItemWrapper(new Item(""));
+
+                NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+                NotifyPropertyChanged(nameof(IsNextImageAvailable));
+                NotifyPropertyChanged(nameof(IsDeleteImageAvailable));
             }
             catch (Exception e)
             {
                 Debug.WriteLine($"Error loading item: {e.Message}");
             }
+        }
+
+        public void ShowPreviousImage()
+        {
+            int imageIndex = Item.SelectedImageIndex - 1;
+            if (imageIndex > 0)
+                Item.SelectedImage = Item.Images[imageIndex - 1];
+
+            NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+            NotifyPropertyChanged(nameof(IsNextImageAvailable));
+            NotifyPropertyChanged(nameof(IsDeleteImageAvailable));
+        }
+
+        public void ShowNextImage()
+        {
+            int imageIndex = Item.SelectedImageIndex - 1;
+            if (imageIndex < Item.ImageCount)
+                Item.SelectedImage = Item.Images[imageIndex + 1];
+
+            NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+            NotifyPropertyChanged(nameof(IsNextImageAvailable));
+            NotifyPropertyChanged(nameof(IsDeleteImageAvailable));
+        }
+
+        public void DeleteImage()
+        {
+            if (!Item.SelectedImage.IsDefault)
+                Item.DeleteImage(Item.SelectedImage);
+
+            NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+            NotifyPropertyChanged(nameof(IsNextImageAvailable));
+            NotifyPropertyChanged(nameof(IsDeleteImageAvailable));
         }
 
         public void Reset()
@@ -96,7 +136,7 @@ namespace BastelKatalog.ViewModels
             return null;
         }
 
-        public void SetImageData(byte[] data)
+        public void AddNewImage(byte[] data)
         {
             try
             {
@@ -128,13 +168,17 @@ namespace BastelKatalog.ViewModels
                             {
                                 if (resized.Encode(stream, SkiaSharp.SKEncodedImageFormat.Jpeg, 100))
                                 {
-                                    ImageData = stream.ToArray();
-                                    Item.Image = ImageSource.FromStream(() => new MemoryStream(ImageData, false));
+                                    byte[] imageData = stream.ToArray();
+                                    Item.AddNewImage(imageData);
                                 }
                             }
                         }
                     }
                 }
+
+                NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+                NotifyPropertyChanged(nameof(IsNextImageAvailable));
+                NotifyPropertyChanged(nameof(IsDeleteImageAvailable));
             }
             catch (Exception e)
             {
@@ -147,17 +191,7 @@ namespace BastelKatalog.ViewModels
             try
             {
                 // Save image and delete existing if overwritten
-                if (ImageData != null)
-                {
-                    string? filename = await ImageManager.SaveImage(ImageData);
-                    if (!String.IsNullOrWhiteSpace(filename))
-                    {
-                        if (Item.Item.ImagePath != null)
-                            ImageManager.DeleteImage(Item.Item.ImagePath);
-
-                        Item.Item.ImagePath = filename;
-                    }
-                }
+                await Item.SaveImages();
 
                 if (_Item.Item.Id == 0)
                     _CatalogueDb.Items.Add(_Item.Item);

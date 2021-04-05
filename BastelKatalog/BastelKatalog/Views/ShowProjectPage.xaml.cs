@@ -55,7 +55,7 @@ namespace BastelKatalog.Views
             if (!((sender as Image)?.BindingContext is Models.ProjectItemWrapper item))
                 return;
 
-            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(item.Item.Name, item.Item.Image));
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(item.Item.Name, item.Item.SelectedImage.ImageSource));
         }
 
         private async void Delete_Tapped(object sender, EventArgs e)

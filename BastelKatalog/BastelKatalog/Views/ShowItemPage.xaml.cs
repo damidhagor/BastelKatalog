@@ -44,7 +44,25 @@ namespace BastelKatalog.Views
 
         private async void Image_Tapped(object sender, EventArgs e)
         {
-            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(ViewModel.Item.Name, ViewModel.Item.Image));
+            await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(new Popups.ViewImagePopupPage(ViewModel.Item.Name, ViewModel.Item.SelectedImage.ImageSource));
+        }
+
+        private void Image_Swiped(object sender, SwipedEventArgs e)
+        {
+            if (e.Direction == SwipeDirection.Left)
+                ViewModel.ShowNextImage();
+            else if (e.Direction == SwipeDirection.Right)
+                ViewModel.ShowPreviousImage();
+        }
+
+        private void PreviousImageBtn_Clicked(object sender, EventArgs e)
+        {
+            ViewModel.ShowPreviousImage();
+        }
+
+        private void NextImageBtn_Clicked(object sender, EventArgs e)
+        {
+            ViewModel.ShowNextImage();
         }
     }
 }

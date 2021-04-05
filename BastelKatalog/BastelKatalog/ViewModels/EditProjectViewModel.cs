@@ -62,7 +62,7 @@ namespace BastelKatalog.ViewModels
             }
         }
 
-        public async Task DeleteProjectItem(ProjectItemWrapper item)
+        public void DeleteProjectItem(ProjectItemWrapper item)
         {
             try
             {

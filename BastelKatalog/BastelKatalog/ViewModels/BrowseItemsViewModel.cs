@@ -192,7 +192,8 @@ namespace BastelKatalog.ViewModels
                 _CatalogueDb.Items.Remove(item.Item);
                 await _CatalogueDb.SaveChangesAsync();
                 Items.Remove(item);
-                ImageManager.DeleteImage(item.Item.Name);
+                foreach (ItemImage image in item.Images)
+                    ImageManager.DeleteImage(image.ImagePath);
             }
             catch (Exception e)
             {

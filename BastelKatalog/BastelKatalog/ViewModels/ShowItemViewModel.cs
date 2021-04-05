@@ -32,6 +32,9 @@ namespace BastelKatalog.ViewModels
             }
         }
 
+        public bool IsPreviousImageAvailable => Item.SelectedImageIndex > 1;
+        public bool IsNextImageAvailable => Item.SelectedImageIndex < Item.ImageCount;
+
 
         public ShowItemViewModel()
         {
@@ -46,11 +49,34 @@ namespace BastelKatalog.ViewModels
             {
                 Item = _CatalogueDb.Items.FirstOrDefault(i => i.Id == itemId)?.ToItemWrapper()
                     ?? new ItemWrapper(new Data.Item(""));
+
+                NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+                NotifyPropertyChanged(nameof(IsNextImageAvailable));
             }
             catch (Exception e)
             {
                 Debug.WriteLine($"Error loading item: {e.Message}");
             }
+        }
+
+        public void ShowPreviousImage()
+        {
+            int imageIndex = Item.SelectedImageIndex - 1;
+            if (imageIndex > 0)
+                Item.SelectedImage = Item.Images[imageIndex - 1];
+
+            NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+            NotifyPropertyChanged(nameof(IsNextImageAvailable));
+        }
+
+        public void ShowNextImage()
+        {
+            int imageIndex = Item.SelectedImageIndex - 1;
+            if (imageIndex < Item.ImageCount)
+                Item.SelectedImage = Item.Images[imageIndex + 1];
+
+            NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+            NotifyPropertyChanged(nameof(IsNextImageAvailable));
         }
     }
 }
