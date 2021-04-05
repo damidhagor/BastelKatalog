@@ -57,9 +57,18 @@ namespace BastelKatalog.Models
             {
                 if (Item.Category?.Id != value?.Id)
                 {
-                    Item.CategoryId = value?.Id;
-                    Item.Category = value;
-                    NotifyPropertyChanged();
+                    if (value?.Id == -1)
+                    {
+                        Item.Category = null;
+                        Item.CategoryId = null;
+                        NotifyPropertyChanged();
+                    }
+                    else
+                    {
+                        Item.CategoryId = value?.Id;
+                        Item.Category = value;
+                        NotifyPropertyChanged();
+                    }
                 }
             }
         }

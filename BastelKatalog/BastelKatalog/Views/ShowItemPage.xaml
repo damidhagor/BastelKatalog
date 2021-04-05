@@ -18,7 +18,7 @@
                     </Image.GestureRecognizers>
                 </Image>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                    <Button Text="-" Clicked="PreviousImageBtn_Clicked" IsEnabled="{Binding IsPreviousImageAvailable}" WidthRequest="40" HeightRequest="40" VerticalOptions="Center"/>
+                    <Button Text="&lt;" Clicked="PreviousImageBtn_Clicked" IsEnabled="{Binding IsPreviousImageAvailable}" WidthRequest="40" HeightRequest="40" VerticalOptions="Center"/>
                     <Label HorizontalOptions="Center" VerticalOptions="Center" Margin="10,0,10,0">
                         <Label.FormattedText>
                             <FormattedString>
@@ -28,7 +28,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Button Text="+" Clicked="NextImageBtn_Clicked" IsEnabled="{Binding IsNextImageAvailable}" WidthRequest="40" HeightRequest="40" VerticalOptions="Center"/>
+                    <Button Text="&gt;" Clicked="NextImageBtn_Clicked" IsEnabled="{Binding IsNextImageAvailable}" WidthRequest="40" HeightRequest="40" VerticalOptions="Center"/>
                 </StackLayout>
 
                 <Grid Margin="0,20,0,0">

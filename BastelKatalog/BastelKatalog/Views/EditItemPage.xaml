@@ -39,7 +39,7 @@
                             </StackLayout>
                         </Grid>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                            <Button Text="-" Clicked="PreviousImageBtn_Clicked" IsEnabled="{Binding IsPreviousImageAvailable}" WidthRequest="40" HeightRequest="40" HorizontalOptions="End" VerticalOptions="Center"/>
+                            <Button Text="&lt;" Clicked="PreviousImageBtn_Clicked" IsEnabled="{Binding IsPreviousImageAvailable}" WidthRequest="40" HeightRequest="40" HorizontalOptions="End" VerticalOptions="Center"/>
                             <Label HorizontalOptions="Center" VerticalOptions="Center" Margin="10,0,10,0">
                                 <Label.FormattedText>
                                     <FormattedString>
@@ -49,7 +49,7 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <Button Text="+" Clicked="NextImageBtn_Clicked" IsEnabled="{Binding IsNextImageAvailable}" WidthRequest="40" HeightRequest="40" HorizontalOptions="Start" VerticalOptions="Center"/>
+                            <Button Text="&gt;" Clicked="NextImageBtn_Clicked" IsEnabled="{Binding IsNextImageAvailable}" WidthRequest="40" HeightRequest="40" HorizontalOptions="Start" VerticalOptions="Center"/>
                         </StackLayout>
                     </StackLayout>
 

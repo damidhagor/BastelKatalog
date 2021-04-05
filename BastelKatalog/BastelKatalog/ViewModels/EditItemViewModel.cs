@@ -72,10 +72,16 @@ namespace BastelKatalog.ViewModels
         {
             try
             {
-                Categories = new ObservableCollection<Category>(_CatalogueDb.Categories.ToList());
+                Categories.Clear();
+                Categories.Add(new Category("-") { Id = -1 });
+                foreach (Category category in _CatalogueDb.Categories.ToList())
+                    Categories.Add(category);
 
                 Item = _CatalogueDb.Items.FirstOrDefault(i => i.Id == itemId)?.ToItemWrapper()
                     ?? new ItemWrapper(new Item(""));
+
+                if (Item.Category == null)
+                    Item.Category = Categories[0];
 
                 NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
                 NotifyPropertyChanged(nameof(IsNextImageAvailable));
