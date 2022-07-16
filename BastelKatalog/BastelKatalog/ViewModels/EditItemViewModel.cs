@@ -128,6 +128,10 @@ namespace BastelKatalog.ViewModels
         public void Reset()
         {
             Item = new ItemWrapper(new Item(""));
+
+            NotifyPropertyChanged(nameof(IsPreviousImageAvailable));
+            NotifyPropertyChanged(nameof(IsNextImageAvailable));
+            NotifyPropertyChanged(nameof(IsDeleteImageAvailable));
         }
 
         public string? Validate()
