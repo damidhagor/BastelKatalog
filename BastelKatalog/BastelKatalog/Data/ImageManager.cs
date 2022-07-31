@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -53,7 +52,33 @@ namespace BastelKatalog.Data
         /// </summary>
         /// <param name="name">Relative image path</param>
         /// <returns>Loaded image</returns>
-        public static ImageSource GetImage(string? name)
+        public async static Task<byte[]?> GetImageAsync(string? name, CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(name))
+                {
+                    string filename = GetImagePath(name);
+                    return File.Exists(filename)
+                        ? await File.ReadAllBytesAsync(filename, cancellationToken)
+                        : await File.ReadAllBytesAsync(DEFAULT_IMAGE_NAME, cancellationToken);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error getting image filename: {e.Message}");
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets an image from storage.
+        /// If image is not foud returns default image.
+        /// </summary>
+        /// <param name="name">Relative image path</param>
+        /// <returns>Loaded image</returns>
+        public static ImageSource GetImageAsImageSource(string? name)
         {
             ImageSource? source = null;
 
@@ -73,6 +98,7 @@ namespace BastelKatalog.Data
 
             return source ?? ImageSource.FromFile(DEFAULT_IMAGE_NAME);
         }
+
 
         /// <summary>
         /// Deletes an image from storage.

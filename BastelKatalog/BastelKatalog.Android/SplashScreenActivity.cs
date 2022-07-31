@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
+using BastelKatalog.Backup;
 using Microsoft.EntityFrameworkCore;
 using Xamarin.Forms;
 
@@ -35,6 +35,9 @@ namespace BastelKatalog.Droid
             Data.CatalogueContext db = new Data.CatalogueContext();
             db.Database.Migrate();
             DependencyService.RegisterSingleton(db);
+
+            DependencyService.Register<IBackupPathProvider, BackupPathProvider>();
+            DependencyService.Register<IBackupProvider, BackupProvider>();
 
             // Start actual MainActivity
             StartActivity(typeof(MainActivity));

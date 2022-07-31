@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace BastelKatalog.ViewModels
@@ -74,7 +75,7 @@ namespace BastelKatalog.ViewModels
 
         public SearchViewModel()
         {
-            _CatalogueDb = DependencyService.Resolve<Data.CatalogueContext>();
+            _CatalogueDb = DependencyService.Get<Data.CatalogueContext>();
         }
 
 
@@ -98,6 +99,19 @@ namespace BastelKatalog.ViewModels
             {
                 Debug.WriteLine($"Error loading categories: {e.Message}");
             }
+        }
+
+        public async Task BackupData()
+        {
+            var backupProvider = DependencyService.Resolve<Backup.BackupProvider>();
+
+            var backupZipFilename = await backupProvider.CreateBackupArchiveAsync(default);
+
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = "Bastelkatalog Backup",
+                File = new ShareFile(backupZipFilename)
+            });
         }
     }
 }

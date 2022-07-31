@@ -77,7 +77,7 @@ namespace BastelKatalog.Models
         public ItemImage(string path)
         {
             _ImagePath = path;
-            _ImageSource = ImageManager.GetImage(ImagePath);
+            _ImageSource = ImageManager.GetImageAsImageSource(ImagePath);
             _IsNew = false;
             _ImageData = null;
         }

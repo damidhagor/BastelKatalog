@@ -6,29 +6,52 @@
              BackgroundColor="{StaticResource Primary}">
 
     <ContentPage.Content>
-        <Grid VerticalOptions="Center" Margin="50,10,50,10">
+        <Grid Margin="50,10,50,10">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
 
-            <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="50" Padding="0" HeightRequest="30">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                    <Entry Text="{Binding SearchText}" Placeholder="Suchbegriff eingeben" Completed="SearchEntry_Completed" TextColor="Black" BackgroundColor="White" HorizontalTextAlignment="Center" Margin="20,0,0,0" HorizontalOptions="FillAndExpand"/>
-                    <Image Source="icon_search.png" Margin="10" HorizontalOptions="End">
+            <Grid Grid.Row="0" VerticalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Frame Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="50" Padding="0" HeightRequest="30">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Entry Text="{Binding SearchText}" Placeholder="Suchbegriff eingeben" Completed="SearchEntry_Completed" TextColor="Black" BackgroundColor="White" HorizontalTextAlignment="Center" Margin="20,0,0,0" HorizontalOptions="FillAndExpand"/>
+                        <Image Source="icon_search.png" Margin="10" HorizontalOptions="End">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="SearchImage_Tapped"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </Frame>
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Kategorie:" TextColor="White" Margin="0,0,5,0" VerticalOptions="Center"/>
+                <Picker Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCategory}" TextColor="White" VerticalOptions="Center"/>
+            </Grid>
+
+            <Frame Grid.Row="1" CornerRadius="50" Padding="20,5,20,5" HeightRequest="40" HorizontalOptions="Center">
+                <StackLayout Orientation="Horizontal" Margin="5">
+                    <Image Source="icon_backup.png" Margin="0,0,5,0">
                         <Image.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="SearchImage_Tapped"/>
+                            <TapGestureRecognizer Tapped="Backup_Tapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="icon_import.png" Margin="5,0,0,0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Import_Tapped"/>
                         </Image.GestureRecognizers>
                     </Image>
                 </StackLayout>
             </Frame>
-
-            <Label Grid.Row="1" Grid.Column="0" Text="Kategorie:" TextColor="White" Margin="0,0,5,0" VerticalOptions="Center"/>
-            <Picker Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Categories}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedCategory}" TextColor="White" VerticalOptions="Center"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
