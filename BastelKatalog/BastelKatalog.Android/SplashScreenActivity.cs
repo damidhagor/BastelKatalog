@@ -36,7 +36,7 @@ namespace BastelKatalog.Droid
             db.Database.Migrate();
             DependencyService.RegisterSingleton(db);
 
-            DependencyService.Register<IBackupPathProvider, BackupPathProvider>();
+            DependencyService.Register<IFilePathProvider, FilePathProvider>();
             DependencyService.Register<IBackupProvider, BackupProvider>();
 
             // Start actual MainActivity

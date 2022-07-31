@@ -104,7 +104,7 @@ namespace BastelKatalog.ViewModels
         public async Task BackupData()
         {
             var catalogueContext = DependencyService.Resolve<Data.CatalogueContext>();
-            var backupPathProvider = DependencyService.Resolve<Backup.IBackupPathProvider>();
+            var backupPathProvider = DependencyService.Resolve<Backup.IFilePathProvider>();
             var backupProvider = new Backup.BackupProvider(catalogueContext, backupPathProvider);
 
             var backupZipFilename = await backupProvider.CreateBackupArchiveAsync(default);

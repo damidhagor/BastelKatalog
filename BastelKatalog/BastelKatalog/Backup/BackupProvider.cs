@@ -14,9 +14,9 @@ namespace BastelKatalog.Backup
     {
         private readonly JsonSerializerOptions _jsonSerializerOptions;
         private readonly CatalogueContext _catalogueContext;
-        private readonly IBackupPathProvider _backupPathProvider;
+        private readonly IFilePathProvider _backupPathProvider;
 
-        public BackupProvider(CatalogueContext catalogueContext, IBackupPathProvider backupPathProvider)
+        public BackupProvider(CatalogueContext catalogueContext, IFilePathProvider backupPathProvider)
         {
             _jsonSerializerOptions = new JsonSerializerOptions
             {
@@ -32,7 +32,7 @@ namespace BastelKatalog.Backup
         {
             var backupName = $"BastelKatalog_Backup_{DateTime.Now:yyyy-MM-dd-HH-mm-ss-ffff}";
             var backupFolder = CreateBackupFolder(backupName);
-            var backupZipFilename = Path.Combine(_backupPathProvider.GetBackupPath(), $"{backupName}.zip");
+            var backupZipFilename = Path.Combine(_backupPathProvider.GetCacheDirectory(), $"{backupName}.zip");
 
             await CreateDbBackupAsync(backupFolder, cancellationToken);
 
@@ -46,7 +46,7 @@ namespace BastelKatalog.Backup
 
         private string CreateBackupFolder(string backupName)
         {
-            var backupFolder = Path.Combine(_backupPathProvider.GetBackupPath(), backupName);
+            var backupFolder = Path.Combine(_backupPathProvider.GetCacheDirectory(), backupName);
 
             Directory.CreateDirectory(backupFolder);
 
