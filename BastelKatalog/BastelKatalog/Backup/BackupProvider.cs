@@ -30,7 +30,7 @@ namespace BastelKatalog.Backup
 
         public async Task<string> CreateBackupArchiveAsync(CancellationToken cancellationToken)
         {
-            var backupName = $"BastelKatalog_Backup_{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss-ffff")}";
+            var backupName = $"BastelKatalog_Backup_{DateTime.Now:yyyy-MM-dd-HH-mm-ss-ffff}";
             var backupFolder = CreateBackupFolder(backupName);
             var backupZipFilename = Path.Combine(_backupPathProvider.GetBackupPath(), $"{backupName}.zip");
 
@@ -97,7 +97,7 @@ namespace BastelKatalog.Backup
 
         private async Task CreateZipFileAsync(string backupFolder, string zipFilename, CancellationToken cancellationToken)
         {
-            await Task.Run(() => ZipFile.CreateFromDirectory(backupFolder, zipFilename, CompressionLevel.Optimal, true));
+            await Task.Run(() => ZipFile.CreateFromDirectory(backupFolder, zipFilename, CompressionLevel.Optimal, true), cancellationToken);
         }
     }
 }
