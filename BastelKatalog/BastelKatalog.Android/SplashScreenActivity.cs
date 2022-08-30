@@ -38,6 +38,7 @@ namespace BastelKatalog.Droid
 
             DependencyService.Register<IFilePathProvider, FilePathProvider>();
             DependencyService.Register<IBackupProvider, BackupProvider>();
+            DependencyService.Register<IImportArchiveProvider, ImportArchiveProvider>();
 
             // Start actual MainActivity
             StartActivity(typeof(MainActivity));

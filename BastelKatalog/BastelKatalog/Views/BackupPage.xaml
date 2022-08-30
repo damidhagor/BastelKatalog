@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="BastelKatalog.Views.BackupPage"
+             Title="Backup">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConv"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <toolkit:TabView TabIndicatorColor="White" SelectedIndex="0"
+                             TabContentBackgroundColor="{StaticResource Primary}"
+                             TabStripBackgroundColor="{StaticResource Primary}">
+                <toolkit:TabViewItem Text="Backup" TextColor="White">
+                    <Grid Margin="0,5,0,0" BackgroundColor="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Row="0" Grid.Column="0" Text="Backup erstellen"
+                                Clicked="Backup_Tapped"
+                                IsVisible="{Binding IsBackupRunning, Converter={StaticResource InvertedBoolConv}}"
+                                HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Margin="20,0,20,0" VerticalOptions="Center"
+                              IsVisible="{Binding IsBackupRunning}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProgressStatus}" HorizontalOptions="Center"/>
+                            <ProgressBar Grid.Row="1" Grid.Column="0" ProgressColor="{StaticResource Primary}" Progress="{Binding Progress}"/>
+                            <Button Grid.Row="2" Grid.Column="0" Text="Abbrechen" HorizontalOptions="Center"/>
+                        </Grid>
+
+                        <Label Grid.Row="1" Grid.Column="0" TextColor="Gray" FontSize="16"
+                               HorizontalTextAlignment="Center" Margin="20,0,20,20">
+                            Diese Funktion führt ein Backup der Bastelkatalog-Daten durch. Das Backup beinhaltet sowohl den Katalog als auch alle Fotos und kann wieder importiert werden, um den bestehenden Katalog zu übernehmen.
+                        </Label>
+                    </Grid>
+                </toolkit:TabViewItem>
+
+                <toolkit:TabViewItem Text="Import" TextColor="White">
+                    <Grid Margin="0,5,0,0" BackgroundColor="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Row="0" Grid.Column="0" Text="Backup importieren"
+                                Clicked="Import_Tapped"
+                                IsVisible="{Binding IsImportRunning, Converter={StaticResource InvertedBoolConv}}"
+                                HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                        <Grid Grid.Row="0" Grid.Column="0" Margin="20,0,20,0" VerticalOptions="Center"
+                              IsVisible="{Binding IsImportRunning}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProgressStatus}" HorizontalOptions="Center"/>
+                            <ProgressBar Grid.Row="1" Grid.Column="0" ProgressColor="{StaticResource Primary}" Progress="{Binding Progress}"/>
+                            <Button Grid.Row="2" Grid.Column="0" Text="Abbrechen" HorizontalOptions="Center"/>
+                        </Grid>
+
+                        <Label Grid.Row="1" Grid.Column="0" TextColor="Gray" FontSize="16"
+                               HorizontalTextAlignment="Center" Margin="20,0,20,0">
+                            Diese Funktion importiert ein bereits erstelltes Backup von Bastelkatalog-Daten.
+                        </Label>
+
+                        <Label Grid.Row="2" Grid.Column="0" TextColor="Red" Opacity="0.6" FontSize="16"
+                               HorizontalTextAlignment="Center" Margin="20,0,20,20">
+                            ACHTUNG: Beim Import werden alle bestehenden Daten gelöscht und durch die importierten ersetzt!
+                        </Label>
+                    </Grid>
+                </toolkit:TabViewItem>
+            </toolkit:TabView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

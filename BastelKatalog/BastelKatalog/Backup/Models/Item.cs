@@ -1,4 +1,6 @@
-﻿namespace BastelKatalog.Backup.Models
+﻿using System.Text.Json.Serialization;
+
+namespace BastelKatalog.Backup.Models
 {
     public class Item
     {
@@ -18,8 +20,20 @@
 
         public string? ImagePath { get; set; }
 
+        [JsonConstructor]
+        public Item(int id, string name, string? code, int? categoryId, float stock, string? description, string? tags, string? imagePath)
+        {
+            Id = id;
+            Name = name;
+            Code = code;
+            CategoryId = categoryId;
+            Stock = stock;
+            Description = description;
+            Tags = tags;
+            ImagePath = imagePath;
+        }
 
-        public Item(BastelKatalog.Data.Item item)
+        public Item(Data.Item item)
         {
             Id = item.Id;
             Name = item.Name;
@@ -29,6 +43,20 @@
             Description = item.Description;
             Tags = item.Tags;
             ImagePath = item.ImagePath;
+        }
+
+        public Data.Item ToDataModel()
+        {
+            return new Data.Item(Name)
+            {
+                Id = Id,
+                Code = Code,
+                CategoryId = CategoryId,
+                Stock = Stock,
+                Description = Description,
+                Tags = Tags,
+                ImagePath = ImagePath
+            };
         }
     }
 }

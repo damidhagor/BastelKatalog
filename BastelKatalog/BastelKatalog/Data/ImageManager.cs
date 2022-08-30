@@ -123,16 +123,74 @@ namespace BastelKatalog.Data
 
 
         /// <summary>
+        /// Exports all images by copying the images folder to a destination folder.
+        /// </summary>
+        public static async Task ExportImages(string destinationFolder, CancellationToken cancellationToken)
+        {
+            await Task.Run(() =>
+            {
+                var exportDirectory = Path.Combine(destinationFolder, "images");
+                Directory.CreateDirectory(exportDirectory);
+
+                foreach (var file in Directory.GetFiles(GetImageDirectory()))
+                {
+                    if (cancellationToken.IsCancellationRequested)
+                        return;
+
+                    File.Copy(file, Path.Combine(exportDirectory, Path.GetFileName(file)));
+                }
+            });
+        }
+
+        /// <summary>
+        /// Imports all images by deleting the existing images and copying the new images to the storage folder.
+        /// </summary>
+        public static async Task ImportImages(string sourceFolder, CancellationToken cancellationToken)
+        {
+            await Task.Run(() =>
+            {
+                DeleteAllImages();
+
+                var imagesDirectory = GetImageDirectory();
+
+                Directory.CreateDirectory(imagesDirectory);
+
+                foreach (var file in Directory.GetFiles(sourceFolder))
+                {
+                    if (cancellationToken.IsCancellationRequested)
+                        return;
+
+                    File.Copy(file, Path.Combine(imagesDirectory, Path.GetFileName(file)));
+                }
+            });
+        }
+
+
+        /// <summary>
+        /// Deletes all saved images from storage.
+        /// </summary>
+        private static void DeleteAllImages()
+        {
+            if (Directory.Exists(GetImageDirectory()))
+                Directory.Delete(GetImageDirectory(), true);
+        }
+
+
+        /// <summary>
+        /// Gets the absolute image directory path.
+        /// </summary>
+        /// <returns>Absolute image directory path</returns>
+        private static string GetImageDirectory()
+            => DeviceInfo.Platform == DevicePlatform.Android
+                ? Path.Combine(FileSystem.AppDataDirectory, "images")
+                : "images";
+
+        /// <summary>
         /// Gets the absolute image path for a relative image path
         /// </summary>
         /// <param name="filename">Relative image path</param>
         /// <returns>Absolute image path</returns>
         private static string GetImagePath(string filename)
-        {
-            if (DeviceInfo.Platform == DevicePlatform.Android)
-                return Path.Combine(FileSystem.AppDataDirectory, "images", filename);
-            else
-                return Path.Combine("images", filename);
-        }
+            => Path.Combine(GetImageDirectory(), filename);
     }
 }

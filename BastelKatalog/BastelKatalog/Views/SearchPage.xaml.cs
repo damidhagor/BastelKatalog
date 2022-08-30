@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BastelKatalog.Helper;
 using BastelKatalog.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -34,25 +33,6 @@ namespace BastelKatalog.Views
         {
             await ExecuteSearch();
         }
-
-        private async void Backup_Tapped(object sender, EventArgs e)
-        {
-            bool hasStorageWritePermission = await PermissionHelper.RequestStorageWritePermission();
-
-            if (!hasStorageWritePermission)
-            {
-                await DisplayAlert("Fehler", "Das Backup kann ohne die nötigen Berechtigungen nicht durchgeführt werden.", "Ok");
-                return;
-            }
-
-            await ViewModel.BackupData();
-        }
-
-        private async void Import_Tapped(object sender, EventArgs e)
-        {
-
-        }
-
 
         private async Task ExecuteSearch()
         {

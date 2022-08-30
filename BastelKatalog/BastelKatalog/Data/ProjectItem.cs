@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BastelKatalog.Data
+﻿namespace BastelKatalog.Data
 {
     public class ProjectItem
     {
@@ -29,6 +27,15 @@ namespace BastelKatalog.Data
             Item = item;
             ProjectId = project.Id;
             Project = project;
+        }
+
+        public ProjectItem(int id, int itemId, int projectId, float neededStock)
+            : this()
+        {
+            Id = id;
+            ItemId = itemId;
+            ProjectId = projectId;
+            NeededStock = neededStock;
         }
     }
 }
