@@ -36,7 +36,6 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -44,7 +43,6 @@
 
                             <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProgressStatus}" HorizontalOptions="Center"/>
                             <ProgressBar Grid.Row="1" Grid.Column="0" ProgressColor="{StaticResource Primary}" Progress="{Binding Progress}"/>
-                            <Button Grid.Row="2" Grid.Column="0" Text="Abbrechen" HorizontalOptions="Center"/>
                         </Grid>
 
                         <Label Grid.Row="1" Grid.Column="0" TextColor="Gray" FontSize="16"
@@ -83,7 +81,6 @@
 
                             <Label Grid.Row="0" Grid.Column="0" Text="{Binding ProgressStatus}" HorizontalOptions="Center"/>
                             <ProgressBar Grid.Row="1" Grid.Column="0" ProgressColor="{StaticResource Primary}" Progress="{Binding Progress}"/>
-                            <Button Grid.Row="2" Grid.Column="0" Text="Abbrechen" HorizontalOptions="Center"/>
                         </Grid>
 
                         <Label Grid.Row="1" Grid.Column="0" TextColor="Gray" FontSize="16"
